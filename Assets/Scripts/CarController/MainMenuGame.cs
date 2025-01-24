@@ -7,7 +7,7 @@ public class MainMenuGame : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("SampleScene"); // Replace with your game scene name
+        SceneManager.LoadScene("Track2"); // Replace with your game scene name
     }
 
     public void OpenSettings()
