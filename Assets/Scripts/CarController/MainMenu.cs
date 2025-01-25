@@ -3,7 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void StartGame()
+    public void StartGameLevel1()
+    {
+        SceneManager.LoadScene("Track1"); // Replace with your game scene name
+    }
+    public void StartGameLevel2()
     {
         SceneManager.LoadScene("Track2"); // Replace with your game scene name
     }
