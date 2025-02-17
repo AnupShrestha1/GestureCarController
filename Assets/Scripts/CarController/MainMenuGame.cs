@@ -7,12 +7,12 @@ public class MainMenuGame : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Track2"); // Replace with your game scene name
+        SceneManager.LoadScene("Track2"); 
     }
 
     public void OpenSettings()
     {
-        // Show settings menu (implement Settings Menu logic here)
+        
         Debug.Log("Open Settings Menu");
     }
 
@@ -34,7 +34,7 @@ public class MainMenuGame : MonoBehaviour
 
     public void CloseMainMenu()
     {
-         // Replace with your main menu scene name
+         
          menu.SetActive(false);
          Time.timeScale = 1;
     }
