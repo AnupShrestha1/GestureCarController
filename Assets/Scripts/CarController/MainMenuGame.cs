@@ -7,35 +7,33 @@ public class MainMenuGame : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Track2"); 
+        SceneManager.LoadScene("Track2"); // Load the game scene
     }
 
     public void OpenSettings()
     {
-        
         Debug.Log("Open Settings Menu");
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        Application.Quit(); // Quit the game
     }
 
-    public void GotoMainMenu(){
-        SceneManager.LoadScene("MainMenu"); 
+    public void GotoMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu"); // Load the Main Menu scene
     }
 
     public void OpenMainMenu()
     {
-         // Replace with your main menu scene name
-         menu.SetActive(true);
-         Time.timeScale = 0;
+        menu.SetActive(true); // Display the main menu
+        Time.timeScale = 0; // Pause the game
     }
 
     public void CloseMainMenu()
     {
-         
-         menu.SetActive(false);
-         Time.timeScale = 1;
+        menu.SetActive(false); // Hide the main menu
+        Time.timeScale = 1; // Resume the game
     }
 }

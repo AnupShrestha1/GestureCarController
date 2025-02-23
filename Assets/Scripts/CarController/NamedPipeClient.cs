@@ -18,11 +18,7 @@ public class NamedPipeClient : MonoBehaviour
         pipeThread = new Thread(ReadPipe);
         pipeThread.Start();
     }
-
-    void Update()
-    {
-        // Here you can implement any Unity-specific logic
-    }
+    
 
     private void ReadPipe()
     {

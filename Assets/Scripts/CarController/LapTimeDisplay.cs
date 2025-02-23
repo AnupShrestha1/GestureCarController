@@ -3,34 +3,66 @@ using TMPro;
 
 public class LapTimeDisplay : MonoBehaviour
 {
-    public TextMeshProUGUI lapTimeText;  // Reference to the TextMeshProUGUI component
-    private LapTimer lapTimer;  // Reference to the LapTimer script
+    public TextMeshProUGUI lapTimeText;
+    public TextMeshProUGUI bestLapTimeText;
+    public TextMeshProUGUI bestLapTimeMenuText;
+    public TextMeshProUGUI lapCountText;
+    public GameObject gameOverPanel; // Reference to Game Over UI Panel
+    public TextMeshProUGUI WinLose;
+    public int thisLevel;
+    public const string maxLevelKey="CompletedLevel";
+
+    private LapTimer lapTimer;
 
     void Start()
     {
-        // Find the LapTimer component in the scene
         lapTimer = FindObjectOfType<LapTimer>();
 
-        // Check if lapTimer was found
         if (lapTimer == null)
         {
             Debug.LogError("LapTimer not found in the scene.");
         }
 
-        // Check if lapTimeText was assigned in the Inspector
-        if (lapTimeText == null)
+        if (lapTimeText == null || bestLapTimeText == null || lapCountText == null || gameOverPanel == null)
         {
-            Debug.LogError("LapTimeText is not assigned in the Inspector.");
+            Debug.LogError("One or more UI references are missing.");
         }
+
+        gameOverPanel.SetActive(false); // Ensure it's hidden at the start
     }
 
     void Update()
     {
-        // Update the lap time on the UI text if lapTimer exists
-        if (lapTimer != null && lapTimeText != null)
+        if (lapTimer != null && Time.timeScale != 0) // Avoid updating when game is paused
         {
-            // Display the lap time using the GetLapTime() method
-            lapTimeText.text = "Lap Time: " + lapTimer.GetLapTime().ToString("F2");
+            lapTimeText.text = "Lap Time: " + lapTimer.LapTime.ToString("F2");
+            bestLapTimeText.text = "Best Lap: " + lapTimer.GetBestLapTime().ToString("F2");
+            lapCountText.text = "Lap: " + Mathf.Max(0, lapTimer.lapCount) + " / " + lapTimer.maxLaps;
+            
+        }
+    }
+
+    public void ShowGameOver()
+    {
+        Debug.Log("Showing Game Over UI");
+        gameOverPanel.SetActive(true); // Display Game Over UI
+
+        // Update best lap time only after the race ends
+        bestLapTimeText.text = "Best Lap: " + lapTimer.GetBestLapTime().ToString("F2");
+        bestLapTimeMenuText.text="Best Lap: " + lapTimer.GetBestLapTime().ToString("F2");
+        if (lapTimer.GetBestLapTime() < 50)
+        {
+            WinLose.text = " You Won";
+        }
+        else
+        {
+            WinLose.text = "You Lose";
+        }
+
+        int maxLevel = PlayerPrefs.GetInt(maxLevelKey);
+        if (maxLevel < thisLevel)
+        {
+            PlayerPrefs.SetInt(maxLevelKey,thisLevel);
         }
     }
 }

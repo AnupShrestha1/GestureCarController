@@ -2,20 +2,27 @@ using UnityEngine;
 
 public class LapTrigger : MonoBehaviour
 {
-    private LapTimer lapTimer;
+    public LapTimer lapTimer;  // Reference to LapTimer
 
-    void Start()
+    private void Start()
     {
-        // Get the LapTimer component
-        lapTimer = FindObjectOfType<LapTimer>();
+        // Find LapTimer automatically if not assigned
+        if (lapTimer == null)
+        {
+            lapTimer = FindObjectOfType<LapTimer>();
+        }
+
+        if (lapTimer == null)
+        {
+            Debug.LogError("LapTimer script not found! Make sure it is in the scene.");
+        }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        // Make sure the lap timer starts when the player passes the trigger
         if (other.CompareTag("Player"))
         {
-            lapTimer.StartTimer();
+            lapTimer.CompleteLap();  // Call CompleteLap() when the player crosses the trigger
         }
     }
 }
